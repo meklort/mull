@@ -5,12 +5,7 @@ env:
   LLVM_RELEASE: "9.0"
 
 on:
-  pull_request:
   push:
-    branches:
-      - master
-    tags:
-      - "**"
 
 jobs:
   test:
@@ -72,6 +67,9 @@ jobs:
             -e SDKROOT=`xcrun -show-sdk-path` \
             -e mull_version=${{ steps.settings.outputs.version }}${{ steps.settings.outputs.suffix }} \
             --verbose
+      - name: Run OpenSSL
+        run: |
+          gtimeout -k 7m 7m mull-cxx -test-framework=CustomTest -ld-search-path=/lib/x86_64-linux-gnu /opt/integration/openssl-no-shared/test/bio_enc_test
       - name: Publish package
         if: matrix.LLVM_VERSION == env.LLVM_RELEASE
         run: |

@@ -24,6 +24,7 @@
       - gnu-tar
       - pkg-config
       - python3
+      - coreutils
 
   vars_files:
     - helpers/variables.yaml
