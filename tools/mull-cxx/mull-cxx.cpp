@@ -34,6 +34,9 @@
 #include <sstream>
 #include <unistd.h>
 
+#include <sys/time.h>
+#include <sys/resource.h>
+
 static void validateInputFile() {
   if (access(tool::InputFile.getValue().c_str(), R_OK) != 0) {
     perror(tool::InputFile.getValue().c_str());
@@ -42,6 +45,11 @@ static void validateInputFile() {
 }
 
 int main(int argc, char **argv) {
+  struct rlimit new_lim;
+  new_lim.rlim_cur = 0;
+  new_lim.rlim_max = 0;
+  prlimit(0, RLIMIT_CORE, &new_lim, NULL);
+
   mull::Diagnostics diagnostics;
   llvm_compat::setVersionPrinter(mull::printVersionInformation,
                                  mull::printVersionInformationStream);
