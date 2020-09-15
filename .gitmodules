@@ -1,7 +1,7 @@
 [submodule "vendor/LibEBC"]
 	path = vendor/LibEBC
-	url = https://github.com/AlexDenisov/LibEBC.git
-	branch = fix_macos_freebsd_builds
+	url = https://github.com/meklort/LibEBC.git
+	branch = mull-llvm-fix
 [submodule "vendor/json11"]
 	path = vendor/json11
 	url = https://github.com/dropbox/json11
