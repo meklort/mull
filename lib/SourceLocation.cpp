@@ -1,6 +1,6 @@
 #include "mull/SourceLocation.h"
 
-#import "mull/Path.h"
+#include "mull/Path.h"
 
 #include <string>
 #include <utility>

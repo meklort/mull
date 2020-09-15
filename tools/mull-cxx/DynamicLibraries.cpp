@@ -21,7 +21,10 @@ void librariesFromElf(const ELFObjectFile<T> &file, std::vector<std::string> &li
   for (auto it = file.section_begin(); it != file.section_end(); ++it) {
     ELFSectionRef elfSection(*it);
     llvm::StringRef name;
-    elfSection.getName(name);
+    if (auto NameOrErr = elfSection.getName())
+      name = *NameOrErr;
+    else
+      consumeError(NameOrErr.takeError());
     // FIXME: the dynamic string table should be taken based on .dynamic
     // section's sh_link value
     if (elfSection.getType() == llvm::ELF::SHT_STRTAB && name.equals(".dynstr")) {
